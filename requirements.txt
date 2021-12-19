@@ -1,0 +1,7 @@
+beautifulsoup4
+requests
+time
+Flask
+line-bot-sdk
+random
+urllib.request
