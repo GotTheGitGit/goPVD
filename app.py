@@ -11,9 +11,7 @@ import taiwangoorg
 import user_manual
 
 app = Flask(__name__)
-nowTime = int(time.time()) # 取得現在時間
-struct_time = time.localtime(nowTime) # 轉換成時間元組
-timeString = time.strftime("%Y", struct_time)
+
 # LINE 聊天機器人的基本資料
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -39,31 +37,32 @@ def callback():
 
     return 'OK'
 
+
 @handler.add(MessageEvent, message=TextMessage)
 def Feedback(event):
 
     sendString = ""
-    if "比賽最新資訊" in event.message.text:
-        sendString = competition()
-    elif "Competition informations" in event.message.text or \
-         "比賽" in event.message.text:
-        sendString = competition()
-    elif (timeString + "勝率前百排行榜") in event.message.text or \
-         "勝率" in event.message.text or "winrate" in event.message.text:
-        sendString = rank()
+    if "比賽" in event.message.text:
+        sendString = competition.getcompetition()
+    elif "Competition informations" in event.message.text:
+        sendString = competition.getcompetition()
+    elif "勝率" in event.message.text or \
+            "winrate" in event.message.text:
+        sendString = rank.Rank()
     elif "每日五則圍棋新聞" in event.message.text:
-        sendString = news_in_time()
+        sendString = news_in_time.Everyday_news()
     elif "台灣棋院最新資訊" in event.message.text:
-        sendString = taiwangoorg()
+        sendString = taiwangoorg.Taiwangoorg()
     elif "使用說明" in event.message.text:
-        sendString = user_manual()
+        sendString = user_manual.user_manual()
     else:
-        return "無法辨識指令"
-    
+        sendString = "無法辨識指令"
+
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=sendString)
     )
+
 
 if __name__ == "__main__":
     app.run()
