@@ -57,10 +57,13 @@ def Feedback(event):
     else:
         sendString = "無法辨識指令"
 
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=sendString)
-    )
+    if type(sendString) == list:
+        line_bot_api.reply_message(event.reply_token, sendString)
+    else:
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=sendString)
+        )
 
 
 if __name__ == "__main__":

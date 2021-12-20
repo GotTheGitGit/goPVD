@@ -29,7 +29,7 @@ def Everyday_news():
 
     for i in range(5):
         number = random.randint(0, len(topics))
-        news = topics[number] + "\n" + http[number]
+        news = topics[number] + "\n" + http[number] + "\n"
         reply_list.append(news)
     reply_list.append("\n查看所有新聞在這裡\n>>" + url)
     return ''.join(reply_list)
