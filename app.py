@@ -41,7 +41,6 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def Feedback(event):
 
-    sendString = ""
     if "比賽" in event.message.text:
         sendString = competition.getcompetition()
     elif "Competition informations" in event.message.text:
