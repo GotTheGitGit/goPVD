@@ -41,16 +41,16 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def Feedback(event):
 
-    if "比賽" in event.message.text:
+    if "最新比賽資訊!" in event.message.text:
         sendString = competition.getcompetition()
     elif "Competition informations" in event.message.text:
         sendString = competition.getcompetition()
-    elif "勝率" in event.message.text or \
+    elif "勝率前百排行榜!" in event.message.text or \
             "winrate" in event.message.text:
         sendString = rank.Rank()
-    elif "每日五則圍棋新聞" in event.message.text:
+    elif "每日五則圍棋新聞!" in event.message.text:
         sendString = news_in_time.Everyday_news()
-    elif "台灣棋院最新資訊" in event.message.text:
+    elif "台灣棋院最新資訊!" in event.message.text:
         sendString = taiwangoorg.Taiwangoorg()
     elif "使用說明" in event.message.text:
         sendString = user_manual.user_manual()
