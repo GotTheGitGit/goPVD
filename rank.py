@@ -50,13 +50,13 @@ def Rank():
         "年參與PlayGo所辦理之賽事三場以上之六段以上選手，均列入" + timeString + "年勝率排行榜。"
     reply_list.append(first_line)
 
-    sec_line = top_column[0] + '\t\t' + top_column[1] + '\t\t'\
-                             + top_column[2] + '\t\t' + top_column[3] + '\t\t'\
-                             + top_column[4] + '\t\t' + top_column[5] + '\t\t'
+    sec_line = top_column[0] + '\t  ' + top_column[1] + '\t'\
+                             + top_column[2] + '\t' + top_column[3] + '\t'\
+                             + top_column[4] + '\t' + top_column[5] + '\t'
     reply_list.append(sec_line)
 
     for g in range(99):
-        detail = ' ' + ranking[g] + '\t\t ' + names[g] + '\t\t '\
+        detail = ' ' + ranking[g] + '\t ' + names[g] + '\t\t '\
                  + total_win[g] + '\t\t ' + total_loss[g] + '\t\t'\
                  + winrates[g] + '\t   ' + total_games[g]
         reply_list.append(detail)
