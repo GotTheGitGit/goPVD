@@ -26,4 +26,5 @@ def Taiwangoorg():
     reply_list.append("台灣棋院官方Blog\n>>" + url)
     return '\n'.join(reply_list)
 
+
 # print(Taiwangoorg())

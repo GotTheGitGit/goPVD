@@ -34,4 +34,5 @@ def Everyday_news():
     reply_list.append("\n查看所有新聞在這裡\n>>" + url)
     return ''.join(reply_list)
 
+
 # print(Everyday_news())
