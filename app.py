@@ -4,9 +4,11 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import time
 import configparser
-import rank
+import today_competition
+import afterselection
+import overlap
 import news_in_time
-import competition
+import competitions
 import taiwangoorg
 import user_manual
 
@@ -42,12 +44,12 @@ def callback():
 def Feedback(event):
 
     if "最新比賽資訊!" in event.message.text:
-        sendString = competition.getcompetition()
+        sendString = competitions.getcompetition()
     elif "Competition informations" in event.message.text:
-        sendString = competition.getcompetition()
-    elif "勝率前百排行榜!" in event.message.text or \
-            "winrate" in event.message.text:
-        sendString = rank.Rank()
+        sendString = competitions.getcompetition()
+    elif "個人歷史戰績查詢" in event.message.text or \
+            "battle history" in event.message.text:
+        sendString = '請輸入姓名'
     elif "每日五則圍棋新聞!" in event.message.text:
         sendString = news_in_time.Everyday_news()
     elif "台灣棋院最新資訊!" in event.message.text:

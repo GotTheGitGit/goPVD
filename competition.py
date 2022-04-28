@@ -28,7 +28,7 @@ def getcompetition():
             # img_respond[i] = img_respond[i].replace("\", "")
             img_respond[i] = img_respond[i].replace("\n\n", "")
             img_respond[i] = img_respond[i].replace("\t", "")
-
+            print(img_respond)
             link_name = []
             temp = list(img_respond[i])
             for j in range(1, len(temp)):

@@ -1,9 +1,9 @@
-# 名字好酷喔，只有你耶
+# 你的名字有其他人欸 更酷了
 import requests
 from bs4 import BeautifulSoup as bs
 
 
-def unique(name):
+def overlap(name):
     url = 'http://tpego.hyplaygo.com/TPEGo/Apply/HisCombatRecordList'
     session = requests.Session()
     resp = session.get(url)
@@ -25,36 +25,19 @@ def unique(name):
     }
     # queryUrl = soup.find(class_='form-inline')['action']
     #print(queryUrl, url)
+    result = []
     qResp = session.post(
         url, headers=request_headers, data=formdata)
     qSoup = bs(qResp.text, 'html.parser')
-    battle_histories = qSoup.find_all('td', align='center')
-    # print(battle_histories)
-    titles = qSoup.find_all('td', width='50%')
-    result = []
-    reply_list = []
     # print(qSoup)
-    topic = titles[0].text + '\t' + titles[1].text
-    reply_list.append(topic)
-    for battle_history in battle_histories:
-        if battle_history.a:
-            result.append(battle_history.a.text)
-        else:
-            result.append('輪空')
+    reply_lists = qSoup.find_all(
+        "div", class_="col-md-10")[1]
+    selections = reply_lists.find_all('a')
+    for selection in selections:
+        result.append(name + '\n' + selection.text)
 
-    for i in range(0, len(result), 2):
-        if len(result[i]) == 2:
-            contents = '   ' + result[i] + '\t\t  ' + result[i+1]
-            reply_list.append(contents)
-        elif len(result[i]) == 4:
-            contents = result[i] + '      ' + result[i+1]
-            reply_list.append(contents)
-        else:
-            contents = ' ' + result[i] + '\t\t' + result[i+1]
-            reply_list.append(contents)
-
-    return'\n'.join(reply_list)
+    return result
 
 
-print(unique('舒敬雯'))
-# unique('周昱翔')
+print(overlap('王彥翔'))
+# overlap('舒敬雯')

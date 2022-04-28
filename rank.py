@@ -61,3 +61,6 @@ def Rank():
                  + winrates[g] + '\t   ' + total_games[g]
         reply_list.append(detail)
     return '\n'.join(reply_list)
+
+
+print(Rank())
