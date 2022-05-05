@@ -2,6 +2,10 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 
+class PlayerNotFound(Exception):
+    pass
+
+
 def unique(name):
     url = 'http://tpego.hyplaygo.com/TPEGo/Apply/HisCombatRecordList'
     session = requests.Session()
@@ -33,7 +37,11 @@ def unique(name):
     result = []
     reply_list = []
     # print(qSoup)
-    topic = titles[0].text + '\t' + titles[1].text
+    try:
+        topic = titles[0].text + '\t' + titles[1].text
+    except IndexError:
+        raise PlayerNotFound(f'{name} is not found')
+
     reply_list.append(topic)
     for battle_history in battle_histories:
         if battle_history.a:

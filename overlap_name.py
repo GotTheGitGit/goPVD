@@ -39,5 +39,6 @@ def overlap(name):
     return result
 
 
-print(overlap('王彥翔'))
+if __name__ == '__main__':
+    print(overlap('林宏信'))
 # overlap('舒敬雯')

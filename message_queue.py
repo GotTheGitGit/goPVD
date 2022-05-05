@@ -11,10 +11,10 @@ def get_id(event):
 
 def ask(event, question):
     reply_message(event, question)
-    return MessageQueue.request(event)
+    return MessageQueue.request(event, 300)
 
 
-class RequestTimout(Exception):
+class RequestTimeout(Exception):
     pass
 
 
@@ -31,7 +31,7 @@ class MessageQueue:
                 cls.__requests[room] = queue.Queue(maxsize=1)
 
             if room not in cls.__responses:
-                cls.__responses[room] = queue.Queue(maxsize=1)
+                cls.__responses[room] = queue.Queue(maxsize=0)
 
     @classmethod
     def handle(cls, event):
@@ -42,12 +42,17 @@ class MessageQueue:
         try:
             if not cls.__requests[room].empty():
                 cls.__responses[room].put(event, timeout=1)
+                print("put")
                 cls.__requests[room].get()
                 return True
             return False
         except queue.Empty:
             '''No request, ignore the message'''
             return False
+        except queue.Full:
+            print("timeout")
+            reply_message(event, "操作超時，請重新操作")
+            return True
 
     @classmethod
     def request(cls, event, timeout=30):
@@ -60,8 +65,7 @@ class MessageQueue:
             return cls.__responses[room_id].get(timeout=timeout)
 
         except queue.Empty:
-            MessageQueue.clear(room_id)
-            raise RequestTimout
+            raise RequestTimeout
 
     @classmethod
     def clear(cls, room):
