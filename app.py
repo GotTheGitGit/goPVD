@@ -1,25 +1,17 @@
 from flask import Flask, request, abort
-from linebot import LineBotApi, WebhookHandler
+
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-import time
-import configparser
-import today_competition
-import afterselection
-import overlap
+from battle_history import individual
+from line import handler, reply_message
+from message_queue import MessageQueue
 import news_in_time
 import competitions
 import taiwangoorg
 import user_manual
 
+# https://go185.herokuapp.com/callback
 app = Flask(__name__)
-
-# LINE 聊天機器人的基本資料
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-line_bot_api = LineBotApi(config.get('line-bot', 'channel_access_token'))
-handler = WebhookHandler(config.get('line-bot', 'channel_secret'))
 
 
 # 接收 LINE 的資訊
@@ -43,29 +35,29 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def Feedback(event):
 
-    if "最新比賽資訊!" in event.message.text:
-        sendString = competitions.getcompetition()
-    elif "Competition informations" in event.message.text:
-        sendString = competitions.getcompetition()
-    elif "個人歷史戰績查詢" in event.message.text or \
-            "battle history" in event.message.text:
-        sendString = '請輸入姓名'
-    elif "每日五則圍棋新聞!" in event.message.text:
-        sendString = news_in_time.Everyday_news()
-    elif "台灣棋院最新資訊!" in event.message.text:
-        sendString = taiwangoorg.Taiwangoorg()
-    elif "使用說明" in event.message.text:
-        sendString = user_manual.user_manual()
-    else:
-        sendString = "無法辨識指令"
+    if MessageQueue.handle(event):
+        print('handled, quit')
+        return
 
-    if type(sendString) == list:
-        line_bot_api.reply_message(event.reply_token, sendString)
+    if "最新比賽資訊!" in event.message.text:
+        response = competitions.getcompetition()
+    elif "Competition informations" in event.message.text:
+        response = competitions.getcompetition()
+
+    elif "個人戰績查詢" in event.message.text or \
+            "battle history" in event.message.text:
+        individual(event)
+
+    elif "每日五則圍棋新聞!" in event.message.text:
+        response = news_in_time.Everyday_news()
+    elif "台灣棋院最新資訊!" in event.message.text:
+        response = taiwangoorg.Taiwangoorg()
+    elif "使用說明" in event.message.text:
+        response = user_manual.user_manual()
     else:
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=sendString)
-        )
+        response = "無法辨識指令"
+
+    reply_message(event, response)
 
 
 if __name__ == "__main__":

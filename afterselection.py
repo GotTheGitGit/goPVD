@@ -1,5 +1,4 @@
 # 拿到欲查詢之重名者生日後
-from http.client import NON_AUTHORITATIVE_INFORMATION
 import requests
 from bs4 import BeautifulSoup as bs
 

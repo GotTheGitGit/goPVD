@@ -8,8 +8,8 @@ def user_manual():
     competition = TextSendMessage(
         text="最新比賽資訊：\n隨時隨地掌握第一手比賽資訊，讓你快速瀏覽各個比賽，並附上報名比賽之連結！點選下方圖文選單左上方後系統將會自動帶給你完整的將至比賽資訊！")
     manual.append(competition)
-    rank = TextSendMessage(
-        text="勝率前百排行榜:\n點選下方圖文選單中央的「排行榜」後圍棋資訊PVD就會提供最新的勝率排行榜！(勝率排行榜僅包含透過Playgo平台所辦理的比賽成績，更新時間亦以Playgo平台為準)")
+    contact = TextSendMessage(
+        text="開發者聯絡資訊:\n有任何使用後的建議都歡迎告訴我!)")
     manual.append(rank)
     news_in_time = TextSendMessage(
         text="每日五則圍棋新聞：\n每天忙於工作的你是否無暇好好的掌握圍棋屆最新資訊？在此圍棋資訊PVD提供隨機五則的圍棋新聞，你可以在任何地點、任何時間開啟圍棋資訊PVD接收第一時間的訊息！點選圖文選單右上方的格子後將會得到每日隨機的五則新聞！")
