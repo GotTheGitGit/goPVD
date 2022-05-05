@@ -2,8 +2,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
 
-feedback = '陳品崴' + '\n' + '54勝116敗(出生年月:2004/02)'
-
 
 def final(name_and_birthday):
     name = name_and_birthday.partition('\n')[0]
@@ -80,5 +78,6 @@ def final(name_and_birthday):
     return'\n'.join(reply)
 
 
-# print(final(feedback))
-# final(feedback)
+if __name__ == '__main__':
+    feedback = '陳品崴\n54勝116敗(出生年月:2004/02)'
+    print(final(feedback))

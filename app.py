@@ -47,6 +47,7 @@ def Feedback(event):
     elif "個人戰績查詢" in event.message.text or \
             "battle history" in event.message.text:
         individual(event)
+        return
 
     elif "每日五則圍棋新聞!" in event.message.text:
         response = news_in_time.Everyday_news()

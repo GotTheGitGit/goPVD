@@ -16,14 +16,19 @@ def individual(event):
     print(name)
     try:
         classify(name)
-        unique(name)
+        response = unique(name)
+        reply_message(event, response)
     except AttributeError:
         reply_message(event, ''.join('查無此人'))
     except IndexError:
-        feedback = overlap(name)
-        event = ask(event, ", ".join(feedback))
-        print(event.message.text)
-        final(feedback)
+        options = overlap(name)
+        event = ask(event, ", ".join(options))
+        birthday = event.message.text
+        name_birth = [p for p in options if birthday in p]
+        print(name_birth)
+        if len(name_birth) != 1:
+            raise Exception("name birth is not 1", name_birth)
+        reply_message(event, final(name_birth[0]))
 
         #alt_text = '名字有重複囉，請選擇下方Flex Message中自己的生日'
         # line_bot_api.reply_message(
