@@ -1,6 +1,7 @@
 beautifulsoup4
 bs4
 requests
+html5lib
 Flask
 line-bot-sdk
 gunicorn
