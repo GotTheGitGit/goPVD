@@ -1,10 +1,7 @@
 # 名字好酷喔，只有你耶
 from email.message import Message
-import requests
-from bs4 import BeautifulSoup as bs
 from line import reply_message
 from message_queue import RequestTimeout, ask
-from no_such_name_or_overlap import classify
 from overlap_name import overlap
 from afterselection import final
 from unique_name import PlayerNotFound, unique
@@ -31,7 +28,7 @@ def individual(event):
         reply_message(event, '查無此人')
 
     except RequestTimeout:
-        print("timeout, quited...")
+        print("timeout, quitted...")
         #alt_text = '名字有重複囉，請選擇下方Flex Message中自己的生日'
         # line_bot_api.reply_message(
         # event.reply_token,
