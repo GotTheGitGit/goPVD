@@ -22,13 +22,16 @@ def individual(event):
             name_birth = [p for p in options if birthday in p]
             print(name_birth)
             if len(name_birth) != 1:
+                reply_message(
+                    event, '使用者你好!你所輸入的出生年月不符合使用規範，請你先去看一下使用說明，點擊圖文選單右下角就會在聊天室出現了。Buen dia~')
                 raise Exception("name birth is not 1", name_birth)
             reply_message(event, final(name_birth[0]))
     except PlayerNotFound:
         reply_message(event, '查無此人')
 
     except RequestTimeout:
-        print("timeout, quitted...")
+        reply_message(event, 'Thread dismissed!')
+        print("Timeout!")
         #alt_text = '名字有重複囉，請選擇下方Flex Message中自己的生日'
         # line_bot_api.reply_message(
         # event.reply_token,

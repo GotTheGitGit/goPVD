@@ -9,6 +9,7 @@ import news_in_time
 import competitions
 import taiwangoorg
 import user_manual
+import contact
 
 # https://go185.herokuapp.com/callback
 app = Flask(__name__)
@@ -53,6 +54,8 @@ def Feedback(event):
         response = taiwangoorg.Taiwangoorg()
     elif "圍棋資訊PVD使用說明!" in event.message.text:
         response = user_manual.user_manual()
+    elif "開發者聯絡資訊!" in event.message.text:
+        response = contact.contact_me()
     else:
         response = "無法辨識指令"
 

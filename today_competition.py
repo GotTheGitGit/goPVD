@@ -9,19 +9,21 @@ def today():
         print('url發生錯誤')
         return
     try:
-        result = ['今日比賽資訊!\n']
         soup = bs(resp.text, 'html5lib')
         sources = soup.find(
             'div', class_='panel-body').find_all('div', class_='col-md-3 portfolio-item')
+        result = ['今日比賽資訊!\n']
         for t_source in sources:
             result.append(t_source.h4.a.text + '\n' +
                           'LIVE戰績表查詢>> ' + url + t_source.h4.a['href'])
 
         return '\n'.join(result)
     except:
-        return ''
+        return '查無當日比賽資訊~ sadge'
 
 
+if __name__ == '__main__':
+    print(today())
 # print(today())
 
 

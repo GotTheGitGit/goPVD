@@ -20,13 +20,15 @@ def getcompetition():
     # result = ['最新比賽資訊!']
     for source in sources:
         result.append(source.h4.a.text + '\n' + '日期: ' +
-                      source.p.span.text + '\n' + '活動型態:' +
-                      type[i].text.replace('  ', '').replace('\n', '') + '\n' + '比賽報名連結>> ' +
+                      source.p.span.text + '\n' + '比賽報名連結>> ' +
                       main + source.h4.a['href'])
         i += 1
 
     return '\n\n'.join(result)
 
+
+if __name__ == '__main__':
+    print(getcompetition())
 
 # print(getcompetition())
 # getcompetition()

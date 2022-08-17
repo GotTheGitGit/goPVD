@@ -34,11 +34,14 @@ def overlap(name):
         "div", class_="col-md-10")[1]
     selections = reply_lists.find_all('a')
     for selection in selections:
-        result.append(name + '\n' + selection.text)
+        if result == []:
+            result.append(name + '\n' + selection.text)
+        else:
+            result.append('\n' + selection.text)
 
     return result
 
 
 if __name__ == '__main__':
-    print(overlap('林宏信'))
+    print(overlap('王彥翔'))
 # overlap('舒敬雯')
